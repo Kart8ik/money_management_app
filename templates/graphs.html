@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block head%}
+<title>graphs</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+  <form action="/graphs" method="POST">
+  <div class="row mb-3">
+    <label for="amount" class="col-sm-2 col-form-label">Budget</label>
+    <div class="col-sm-2">
+      <input type="number" class="form-control" name="budget" id="budget">
+    </div>
+    <div class="my-3">        
+      <button type="submit" class="btn btn-dark" action="/graphs">Submit</button>
+      </div>
+  </div>
+  </form>
+    {% if total>=budget %}
+    <div class="alert alert-danger" role="alert">
+      You are over budget 😱
+    </div>
+    {% else %}
+    <div class="alert alert-success" role="alert">
+      You are under budget 😁
+    </div>
+    {% endif %}
+    <h1>Expense Table</h1>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Category</th>
+            <th scope="col">Amount (In Rupees)</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for group in groups %}
+            {% if group.category=='Total' %}
+             <tr>
+                 <td class="table-danger">{{group.category}}</td>
+                 <td class="table-danger">{{group.amount}}</td>
+             </tr>
+            {% elif group.category=='Budget' %} 
+             <tr>
+                 <td class="table-success">{{group.category}}</td>
+                 <td class="table-success">{{group.amount}}</td>
+             </tr>
+            {% else %}
+             <tr>
+                 <td>{{group.category}}</td>
+                 <td>{{group.amount}}</td>
+             </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+      </table>
+      <h1>Expenses Graph</h1>
+      <canvas id="expenseChart" width="200" height="100"></canvas>
+      <script>
+          fetch('/data')
+              .then(response => response.json())
+              .then(data => {
+                  const ctx = document.getElementById('expenseChart').getContext('2d');
+                  new Chart(ctx, {
+                      type: 'bar', // Change to 'line' if you prefer a line chart
+                      data: {
+                          labels: data.labels,
+                          datasets: [{
+                              label: 'Expenses',
+                              data: data.values,
+                              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                              borderColor: 'rgba(75, 192, 192, 1)',
+                              borderWidth: 1
+                          }]
+                      },
+                      options: {
+                          scales: {
+                              y: {
+                                  beginAtZero: true
+                              }
+                          }
+                      }
+                  });
+              });
+      </script>
+</div>
+{% endblock %}

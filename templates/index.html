@@ -1,0 +1,91 @@
+{% extends 'base.html'%} 
+
+{% block head %} 
+<title>addspend</title>
+{% endblock %}
+
+{% block body %} 
+<div class="container my-5 ">
+    <form action="/addspend" method="POST">
+      <h2 class="mb-4">Add Expense</h2>
+        <div class="row mb-3">
+          <label for="amount" class="col-sm-2 col-form-label">Amount</label>
+          <div class="col-sm-2">
+            <input type="number" class="form-control" name="amount" id="amount">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="description" class="col-sm-2 col-form-label">Description</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="desc" id="description">
+          </div>
+        </div>
+        <fieldset class="row mb-3">
+          
+          <div class="col-sm-10">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Food" checked>
+                <label class="form-check-label" for="inlineRadio1">Food</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Utilities">
+                <label class="form-check-label" for="inlineRadio2">Utilities</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Rent">
+                <label class="form-check-label" for="inlineRadio2">Rent</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Transportation">
+                <label class="form-check-label" for="inlineRadio1">Transportation</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Education">
+                <label class="form-check-label" for="inlineRadio1">Education</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Healthcare">
+                <label class="form-check-label" for="inlineRadio2">Healthcare</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Subscriptions">
+                <label class="form-check-label" for="inlineRadio1">Subscriptions</label>
+              </div>   
+        <div class="my-3 mb">        
+        <button type="submit" class="btn btn-dark" action="/addspend">Submit</button>
+        </div>
+      </form>
+  {% if all_spend|length == 0 %}
+  <div class="alert alert-dark" role="alert">
+    No expense to display...get spending 😈
+  </div>
+    {% else %}
+    <h2 class="mt-5">Expenses</h2>
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">s.no</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Description</th>
+        <th scope="col">Category</th>
+        <th scope="col">Date/Time</th>
+        <td><a href="/reset" class="btn btn-dark col-sm-7" role="button">Reset Database</a>
+      </tr>
+    </thead>
+    <tbody>
+    {% for spend in all_spend %}
+      <tr>
+        <th scope="row">{{loop.index}}</th>
+        <td>{{spend.amount}}</td>
+        <td>{{spend.desc}}</td>
+        <td>{{spend.category}}</td>
+        <td>{{spend.date_made}}</td>
+        <td><a href="/delete/{{spend.sno}}" class="btn btn-outline-danger me-2" role="button">Delete</a><a href="/update/{{spend.sno}}" class="btn btn-outline-success" role="button">Update</a></td>
+      </tr> 
+    {% endfor %}
+    </tbody>
+    {% endif %}
+  </table>
+  </div>
+{% endblock %}
+ 
