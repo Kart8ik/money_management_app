@@ -6,7 +6,7 @@ A Flask application to track expenses.
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/your-repo-name.git
+   git clone https://github.com/Kart8ik/money_management_app.git
    ```
 2. Navigate to the project directory:
    ```sh
