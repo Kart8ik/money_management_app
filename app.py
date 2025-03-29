@@ -148,7 +148,7 @@ def graphs():
     groups=summary.query.all()
     Total=summary.query.filter_by(category='Total').first()
     Budget=summary.query.filter_by(category='Budget').first()
-    return render_template('graphs.html',groups=groups,total=Total.amount,budget=Budget.amount)
+    return render_template('graphs.html',groups=groups,total=int(Total.amount),budget=int(Budget.amount))
 
 @app.route('/reset',methods=['POST','GET'])
 def reset():

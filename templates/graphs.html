@@ -11,7 +11,7 @@
   <div class="row mb-3">
     <label for="amount" class="col-sm-2 col-form-label">Budget</label>
     <div class="col-sm-2">
-      <input type="number" class="form-control" name="budget" id="budget">
+      <input type="number" class="form-control" name="budget" id="budget" placeholder="0">
     </div>
     <div class="my-3">        
       <button type="submit" class="btn btn-dark" action="/graphs">Submit</button>
@@ -64,7 +64,7 @@
               .then(data => {
                   const ctx = document.getElementById('expenseChart').getContext('2d');
                   new Chart(ctx, {
-                      type: 'bar', // Change to 'line' if you prefer a line chart
+                      type: 'bar', 
                       data: {
                           labels: data.labels,
                           datasets: [{
