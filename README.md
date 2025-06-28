@@ -10,7 +10,7 @@ A Flask application to track expenses.
    ```
 2. Navigate to the project directory:
    ```sh
-   cd your-repo-name
+   cd money_management_app
    ```
 3. Create a virtual environment:
    ```sh
@@ -19,7 +19,7 @@ A Flask application to track expenses.
 4. Activate the virtual environment:
    - On Windows:
      ```sh
-     venv\Scripts\activate
+     venv\Scripts\Activate.ps1
      ```
    - On macOS/Linux:
      ```sh
